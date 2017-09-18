@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>插入法和归并法排序</title>
+    <style>
+        .operation > div {
+            display: inline-block;
+            margin-right: 50px;
+        }
+
+        .operation button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="operation">
+    <div>
+        <label>排序字段</label>
+        <select id="field">
+            <option value="name">name</option>
+            <option value="age">age</option>
+            <option value="height">height</option>
+            <option value="weight">weight</option>
+        </select>
+    </div>
+    <div>
+        <label>排序类型</label>
+        <select id="type">
+            <option value="asc">升序</option>
+            <option value="desc">降序</option>
+        </select>
+    </div>
+    <div>
+        <label>排序方法</label>
+        <select id="method">
+            <option value="insert">插入排序</option>
+            <option value="merge">归并排序</option>
+        </select>
+    </div>
+    <div>
+        <button id="sort">排序</button>
+    </div>
+</div>
+<script src="sortFun.js"></script>
+<script>
+    window.onload = function () {
+
+        const data = [
+            {'name': "Lily", 'age': 23, 'height': 180, 'weight': 52},
+            {'name': "Tom", 'age': 28, 'height': 165, 'weight': 72},
+            {'name': "Mara", 'age': 15, 'height': 177, 'weight': 70},
+            {'name': "Atom", 'age': 33, 'height': 169, 'weight': 68},
+            {'name': "Hliy", 'age': 73, 'height': 189, 'weight': 90},
+            {'name': "Qyux", 'age': 8, 'height': 174, 'weight': 62},
+            {'name': "Opq", 'age': 56, 'height': 178, 'weight': 45},
+            {'name': "Ixg", 'age': 29, 'height': 159, 'weight': 38},
+            {'name': "Xqw", 'age': 20, 'height': 178, 'weight': 67},
+            {'name': "Sog", 'age': 46, 'height': 181, 'weight': 91},
+            {'name': "Wrx", 'age': 17, 'height': 168, 'weight': 58},
+            {'name': "Ypz", 'age': 36, 'height': 175, 'weight': 76}
+        ];
+
+
+        const sortBtn = document.getElementById('sort');
+        sortBtn.addEventListener('click', function (e) {
+            const sortField = document.getElementById('field').value;
+            const sortType = document.getElementById('type').value;
+            const sortMethod = document.getElementById('method').value;
+
+            const config = {
+                data: data, // 排序数据
+                sortField: sortField,
+                sortType: sortType, // 排序类型，只有两个值 asc-升序 desc-降序
+                sortMethod: sortMethod, // 排序方法，只有两个值 insert-插入 merge-归并
+                success: function (data) {// 排序成功的处理方法
+                    const body = document.getElementsByTagName('body')[0];
+                    let showWrap = document.getElementById('show');
+                    if (showWrap) {
+                        body.removeChild(showWrap);
+                    }
+                    const ul = document.createElement('ul');
+                    ul.setAttribute('id', 'show');
+                    body.appendChild(ul);
+                    for (let i = 0, len = data.length; i < len; i++) {
+                        let li = document.createElement('li');
+                        li.innerText = 'name: ' + data[i].name + ' , age: ' + data[i].age + ' , height: ' + data[i].height + ' , weight: ' + data[i].weight;
+                        ul.appendChild(li);
+                    }
+                }
+            }
+            sort(config);
+        })
+
+    }
+</script>
+</body>
+</html>
