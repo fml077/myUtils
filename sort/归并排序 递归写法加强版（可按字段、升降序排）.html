@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>归并法递归方式</title>
+</head>
+
+<body>
+    <script>
+    window.onload = function() {
+
+        /**
+         * @params array 要排序的数组
+         * @params sortType 排序类型(升序或者降序)
+         * @params sortField 排序字段
+         */
+        var sort = function(array, sortType, sortField) {
+            var result = mergeSort(array, sortField);
+            if ('desc' === sortType) {
+                result.reverse();
+            }
+            return result;
+        }
+
+        // 归并排序 递归
+        var mergeSort = function(array, sortField) {
+            var len = array.length;
+            // 如果只有一个数直接返回
+            if (len === 1) {
+                return array;
+            }
+
+            var mid = Math.floor(len / 2),
+                left = array.slice(0, mid), //截取左边一半
+                right = array.slice(mid, len); //截取右边一半
+
+            return merge(mergeSort(left, sortField), mergeSort(right, sortField), sortField);
+        }
+
+        // 归并排序
+        var merge = function(left, right, sortField) {
+            var arr = [], //存放排序后的数组
+                leftValue,
+                rightValue,
+                l = 0, //左半边下标
+                r = 0; //右边下标
+            while (l < left.length && r < right.length) {
+                // 这里如果没有传入排序字段
+                if (sortField) {
+                    leftValue = left[l][sortField];
+                    rightValue = right[r][sortField];
+                } else {
+                    leftValue = left[l];
+                    rightValue = right[r];
+                }
+
+                if (leftValue < rightValue) { //如果左边的数小就把左边加入arr
+                    arr.push(left[l++]); //把left[l]添加到arr中并让l自增1
+                } else {
+                    arr.push(right[r++]) ////把right[r]添加到arr中并让r自增1
+                }
+            }
+
+            while (l < left.length) {
+                arr.push(left[l++]);
+            }
+            while (r < right.length) {
+                arr.push(right[r++])
+            }
+
+            return arr
+        }
+
+        //test datas
+
+        var data1 = [1, 5, 3, 7, 4, 2, 8, 6];
+        // console.log(mergeSort(data1,'desc'));
+
+        const data2 = [
+            { 'name': "Lily", 'age': 23, 'height': 180, 'weight': 52 },
+            { 'name': "Tom", 'age': 28, 'height': 165, 'weight': 72 },
+            { 'name': "Mara", 'age': 15, 'height': 177, 'weight': 70 },
+            { 'name': "Atom", 'age': 33, 'height': 169, 'weight': 68 },
+            { 'name': "Hliy", 'age': 73, 'height': 189, 'weight': 90 },
+            { 'name': "Qyux", 'age': 8, 'height': 174, 'weight': 62 },
+            { 'name': "Opq", 'age': 56, 'height': 178, 'weight': 45 },
+            { 'name': "Ixg", 'age': 29, 'height': 159, 'weight': 38 },
+            { 'name': "Xqw", 'age': 20, 'height': 178, 'weight': 67 },
+            { 'name': "Sog", 'age': 46, 'height': 181, 'weight': 91 },
+            { 'name': "Wrx", 'age': 17, 'height': 168, 'weight': 58 },
+            { 'name': "Ypz", 'age': 36, 'height': 175, 'weight': 76 }
+        ];
+
+        console.table(sort(data2, 'height'));
+
+    }
+    </script>
+</body>
+
+</html>
