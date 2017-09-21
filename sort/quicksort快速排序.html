@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>快速排序</title>
+</head>
+<div id='root'></div>
+
+<body>
+    <script>
+    window.onload = function() {
+
+        /**
+         * @params arr 要排序的数组
+         * @params column 排序字段
+         * @params sortType 排序类型(升序或者降序)
+         */
+
+        // 快速排序
+        /*function quickSort(arr){
+            var len = arr.length; 
+            if (len <= 1) {
+                return arr.slice(0); //如果数组长度小于等于1直接返回第一个值
+            };
+            //定义左右两个空数组和用于作为比较值的mid,将数组第一个值存放到mid中作为比较值
+            var left = [], right = [], mid = [arr[0]];
+
+            for (var i = 1; i < len; i++){ //从第二个数值开始比较
+                if (arr[i] < mid[0]) { 
+                    left.push(arr[i]); //将小于mid[0]的数据存放到左数组
+                } else {
+                    right.push(arr[i]); //将大于mid[0]的数据存放到右数组
+                }
+            }
+            //将数组左右数组和比较值拼接起来， 递归执行
+            return quickSort(left).concat(quickSort(mid).concat(quickSort(right)));
+
+        }*/
+
+        // 快速排序增强版2： 可按指定字段排序
+        /*function quickSort(arr, column){
+            var len = arr.length;
+            if (len <= 1) {
+                return arr.slice(0);
+            };
+            var left = [], right = [], mid = [arr[0]];
+            for (var i = 1; i < len; i++){
+                if (arr[i][column] < mid[0][column]) {
+                    left.push(arr[i]);
+                } else {
+                    right.push(arr[i]);
+                }
+            }
+
+            return quickSort(left, column).concat(quickSort(mid, column).concat(quickSort(right, column)));
+        };*/
+
+        // 快速排序增强版3： 可按指定字段和升降序排序
+        function quickSort(arr, column, sortType){
+            var len = arr.length;
+            if (len <= 1) {
+                return arr.slice(0); //如果数组长度小于等于1直接返回第一个值
+            };
+            //定义左右两个空数组和用于作为比较值的mid,将数组第一个值存放到mid中作为比较值
+            var left = [], right = [], mid = [arr[0]];
+            for (var i = 1; i < len; i++){ //从第二个数值开始比较
+                if (arr[i][column] < mid[0][column]) {
+                    left.push(arr[i]); //将小于mid[0]的数据存放到左数组
+                } else {
+                    right.push(arr[i]); //将大于mid[0]的数据存放到右数组
+                }
+            }
+            //将数组左右数组和比较值拼接起来， 递归执行
+            var result = quickSort(left, column).concat(quickSort(mid, column).concat(quickSort(right, column)));
+            //降序
+            if ('desc' === sortType){
+                return result.reverse();
+            }
+
+            return result;
+        };
+
+        //test datas
+
+        const datas = [
+            { 'name': "Lily", 'age': 23, 'height': 180, 'weight': 52 },
+            { 'name': "Tom", 'age': 28, 'height': 165, 'weight': 72 },
+            { 'name': "Mara", 'age': 15, 'height': 177, 'weight': 70 },
+            { 'name': "Atom", 'age': 33, 'height': 169, 'weight': 68 },
+            { 'name': "Abom", 'age': 73, 'height': 189, 'weight': 90 },
+            { 'name': "Qyux", 'age': 8, 'height': 174, 'weight': 62 },
+            { 'name': "Opq", 'age': 56, 'height': 178, 'weight': 45 },
+            { 'name': "Ixg", 'age': 29, 'height': 159, 'weight': 38 },
+            { 'name': "Xqw", 'age': 20, 'height': 178, 'weight': 67 },
+            { 'name': "Sog", 'age': 46, 'height': 181, 'weight': 91 },
+            { 'name': "Wrx", 'age': 17, 'height': 168, 'weight': 58 },
+            { 'name': "Ypz", 'age': 36, 'height': 175, 'weight': 76 }
+        ];
+
+        console.log(quickSort(datas, 'weight', 'desc')); //以体重字段降序排序
+
+    }
+    </script>
+</body>
+
+</html>

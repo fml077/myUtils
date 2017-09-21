@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>希尔排序</title>
+</head>
+
+<body>
+    <script>
+    window.onload = function() {
+
+        /**
+         * @params arr 要排序的数组
+         * @params column 排序字段
+         * @params sortType 排序类型(升序或者降序)
+         */
+        // 希尔排序 方法一
+        /*function shellSort(arr) {
+            var gap, i, j, temp; //定义步长gap、下标值i j、临时存贮空间temp
+            //数组长度/2取整赋值给步长作为初始值
+            //每次循环都将步长/2取整
+            for (gap = Math.floor(arr.length / 2); gap > 0; gap = Math.floor(gap / 2)) {
+                for (i = gap; i < arr.length; i++) { //i从gap到arr.length-1每次巡回i变为i + 1
+                    temp = arr[i]; //将arr[i]的值放到temp
+                    for (j = i - gap; j >= 0 && arr[j] > temp; j -= gap) { //j从i-gap到0每次巡回变为j-gap
+                        arr[j + gap] = arr[j]; //如果arr[j]大于temp则将arr[j + gap]的值丟到arr[j]
+                    }
+                    arr[j + gap] = temp; //将temp的值丟到arr[j + gap]
+                }
+            }
+            return arr;
+        };*/
+        //希尔排序增强版2：按指定字段排序
+        function shellSort(arr, column) {
+            var gap, i, j, temp; //定义步长gap、下标值i j、临时存贮空间temp
+            //数组长度/2取整赋值给步长作为初始值
+            //每次循环都将步长/2取整
+            for (gap = Math.floor(arr.length / 2); gap > 0; gap = Math.floor(gap / 2)) {
+                for (i = gap; i < arr.length; i++) { //i从gap到arr.length-1每次巡回i变为i + 1
+                    temp = arr[i]; //将arr[i]的值放到temp
+                    tempc = arr[i][column]; //arr[i]的column字段值
+                    for (j = i - gap; j >= 0 && arr[j][column] > tempc; j -= gap) { //j从i-gap到0每次巡回变为j-gap
+                        arr[j + gap] = arr[j]; //如果arr[j]大于temp则将arr[j + gap]的值丟到arr[j]
+                    }
+                    arr[j + gap] = temp; //将temp的值丟到arr[j + gap]
+                }
+            }
+            return arr;
+        };
+
+        //希尔排序增强版3：按指定字段、指定顺序(升降序)排序
+        function shellSort(arr, column, sortType) {
+            var gap, i, j, temp; //定义步长gap、下标值i j、临时存贮空间temp
+            //数组长度/2取整赋值给步长作为初始值
+            //每次循环都将步长/2取整
+            for (gap = Math.floor(arr.length / 2); gap > 0; gap = Math.floor(gap / 2)) {
+                for (i = gap; i < arr.length; i++) { //i从gap到arr.length-1每次巡回i变为i + 1
+                    temp = arr[i]; //将arr[i]的值放到temp
+                    tempc = arr[i][column]; //arr[i]的column字段值
+                    for (j = i - gap; j >= 0 && arr[j][column] > tempc; j -= gap) { //j从i-gap到0每次巡回变为j-gap
+                        arr[j + gap] = arr[j]; //如果arr[j]大于temp则将arr[j + gap]的值丟到arr[j]
+                    }
+                    arr[j + gap] = temp; //将temp的值丟到arr[j + gap]
+                }
+            }
+            //降序
+            if ('desc' === sortType){
+                return arr.reverse()
+            }
+            return arr;
+        };
+
+        // 希尔排序 方法二
+        /*function shellSort(array) {
+            // swap方法交换数组
+            function swap(array, i, k) {
+                var temp = array[i];
+                array[i] = array[k];
+                array[k] = temp;
+            }
+            var len = array.length,
+                gap = Math.floor(len / 2);
+            while (gap > 0) {
+                for (var i = gap; i < len; i++) {
+                    for (var j = i; 0 < j; j -= gap) {
+                        if (array[j - gap] > array[j]) {
+                            swap(array, j - gap, j);
+                        } else {
+                            break;
+                        }
+                    }
+                }
+                gap = Math.floor(gap / 2);
+            }
+            return array;
+        };*/
+
+
+        //test datas
+
+        const datas = [
+            { 'name': "Lily", 'age': 23, 'height': 180, 'weight': 52 },
+            { 'name': "Tom", 'age': 28, 'height': 165, 'weight': 72 },
+            { 'name': "Mara", 'age': 15, 'height': 177, 'weight': 70 },
+            { 'name': "Atom", 'age': 33, 'height': 169, 'weight': 68 },
+            { 'name': "Abom", 'age': 73, 'height': 189, 'weight': 90 },
+            { 'name': "Qyux", 'age': 8, 'height': 174, 'weight': 62 },
+            { 'name': "Opq", 'age': 56, 'height': 178, 'weight': 45 },
+            { 'name': "Ixg", 'age': 29, 'height': 159, 'weight': 38 },
+            { 'name': "Xqw", 'age': 20, 'height': 178, 'weight': 67 },
+            { 'name': "Sog", 'age': 46, 'height': 181, 'weight': 91 },
+            { 'name': "Wrx", 'age': 17, 'height': 168, 'weight': 58 },
+            { 'name': "Ypz", 'age': 36, 'height': 175, 'weight': 76 }
+        ];
+        console.table(shellSort(datas,'weight', 'desc')); //按weight字段降序排序
+
+
+    }
+    </script>
+</body>
+
+</html>
