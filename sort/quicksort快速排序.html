@@ -56,7 +56,7 @@
         };*/
 
         // 快速排序增强版3： 可按指定字段和升降序排序
-        function quickSort(arr, column, sortType){
+        function quickSort(arr, column){
             var len = arr.length;
             if (len <= 1) {
                 return arr.slice(0); //如果数组长度小于等于1直接返回第一个值
@@ -71,14 +71,20 @@
                 }
             }
             //将数组左右数组和比较值拼接起来， 递归执行
-            var result = quickSort(left, column).concat(quickSort(mid, column).concat(quickSort(right, column)));
-            //降序
-            if ('desc' === sortType){
-                return result.reverse();
-            }
-
-            return result;
+            return quickSort(left, column).concat(mid, quickSort(right, column));
+            
         };
+
+        function quickSortType (arr, colunm, sortType) {
+            if ( 'desc' === sortType) {
+               return quickSort(arr, colunm).reverse();
+            }
+            else{
+               return quickSort(arr, colunm);
+            }
+        }
+
+
 
         //test datas
 
@@ -97,7 +103,7 @@
             { 'name': "Ypz", 'age': 36, 'height': 175, 'weight': 76 }
         ];
 
-        console.log(quickSort(datas, 'weight', 'desc')); //以体重字段降序排序
+        console.table(quickSortType(datas, 'height', 'desc')); //以height字段降序排序
 
     }
     </script>
