@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>快速排序</title>
+</head>
+
+<body>
+    <script>
+    window.onload = function() {
+
+        //快速排序主函数 
+        /**
+         * @param {Array} arr 要排序的目标
+         * @param {int} left 最左边元素的下标
+         * @param {int} right 最右边元素的下标
+         */
+
+        function quickSort(arr, left, right) {
+        	var partitionIndex; //分割点下标
+            if (left < right) {
+            	partitionIndex = partition(arr, left, right);
+            	quickSort(arr, left, partitionIndex - 1);
+            	quickSort(arr, partitionIndex + 1, right);
+            }
+
+            return arr;
+        };
+
+        //辅助函数swap 交换两个数位置
+        /**
+         * @param {Array} arr 要交换位置的目标数组
+         * @param {int} a 要交换位置的下标
+         * @param {int} b 要交换位置的下标
+         */
+        function swap(arr, a, b) {
+        	var temp = arr[a];
+        	arr[a] = arr[b];
+        	arr[b] = temp;
+        }
+
+        //快速排序分割函数partition
+        /**
+         * @param {Array} arr 要排序的目标
+         * @param {int} left 最左边元素的下标
+         * @param {int} right 最右边元素的下标
+         */
+
+        function partition(arr, left, right) {
+        	//以数组最右边的数值作为中轴元素
+        	var x = arr[right], i = left - 1; 
+        	//i,j下标值分别查找大于，小于中轴元素的值
+        	for (var j = left; j < right; j++){
+        		if (arr[j] <= x) { 
+        			i++;
+        			swap(arr, i, j);
+        		}
+        	}
+        	swap(arr, i+1, right);
+        	return i+1;
+        }
+
+        //test datas
+        var datas = [3, 2, 4, 6, 4, 3, 5, 1, 9, 7, 8, 2];
+        console.log(quickSort(datas, 0, datas.length-1));
+
+    }
+    </script>
+</body>
+
+</html>

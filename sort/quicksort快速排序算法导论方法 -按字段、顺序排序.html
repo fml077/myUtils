@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>快速排序</title>
+</head>
+
+<body>
+    <script>
+    window.onload = function() {
+
+        //快速排序主函数 
+        /**
+         * @param {Array} arr 要排序的目标
+         * @param {int} left 最左边元素的下标
+         * @param {int} right 最右边元素的下标
+         * @param {string} column 排序字段
+         */
+
+        function quickSort(arr, left, right, column) {
+        	var partitionIndex; //分割点下标
+            if (left < right) {
+            	partitionIndex = partition(arr, left, right, column);
+            	quickSort(arr, left, partitionIndex - 1, column);
+            	quickSort(arr, partitionIndex + 1, right, column);
+            }
+
+            return arr;
+        };
+
+        //辅助函数swap 交换两个数位置
+        /**
+         * @param {Array} arr 要交换位置的目标数组
+         * @param {int} a 要交换位置的下标
+         * @param {int} b 要交换位置的下标
+         */
+        function swap(arr, a, b) {
+        	var temp = arr[a];
+        	arr[a] = arr[b];
+        	arr[b] = temp;
+        }
+
+        //快速排序分割函数partition
+        /**
+         * @param {Array} arr 要排序的目标
+         * @param {int} left 最左边元素的下标
+         * @param {int} right 最右边元素的下标
+         * @param {string} column 排序字段
+         */
+
+        function partition(arr, left, right, column) {
+        	//以数组最右边的数值作为中轴元素
+        	var x = arr[right][column], i = left - 1; 
+        	//i,j下标值分别查找大于，小于中轴元素的值
+        	for (var j = left; j < right; j++){
+        		if (arr[j][column] <= x) { 
+        			i++;
+        			swap(arr, i, j);
+        		}
+        	}
+        	swap(arr, i+1, right);
+        	return i+1;
+        }
+
+
+        // 可指定字段、顺序排序
+        /**
+         * @param {Array} arr 要排序的目标
+         * @param {int} left 最左边元素的下标
+         * @param {int} right 最右边元素的下标
+         * @param {string} column 排序字段
+         * @param {string} sortType 排序顺序（升或者降序）
+         */
+        function quickSortBy (arr, left, right, column, sortType) {
+            if ('desc' === sortType) {
+                return quickSort(arr, left, right, column).reverse();
+            }
+            return quickSort(arr, left, right, column);
+        }
+
+        //test datas
+
+        const data1 = [
+            {'name': "Lily", 'age': 23, 'height': 180, 'weight': 52},
+            {'name': "Tom", 'age': 28, 'height': 165, 'weight': 72},
+            {'name': "Mara", 'age': 15, 'height': 177, 'weight': 70},
+            {'name': "Adom", 'age': 33, 'height': 169, 'weight': 68},
+            {'name': "Aciy", 'age': 73, 'height': 189, 'weight': 90},
+            {'name': "Qyux", 'age': 8, 'height': 174, 'weight': 62},
+            {'name': "Opq", 'age': 56, 'height': 178, 'weight': 45},
+            {'name': "Ixg", 'age': 29, 'height': 159, 'weight': 38},
+            {'name': "Xqw", 'age': 20, 'height': 178, 'weight': 67},
+            {'name': "Sog", 'age': 46, 'height': 181, 'weight': 91},
+            {'name': "Wrx", 'age': 17, 'height': 168, 'weight': 58},
+            {'name': "Ypz", 'age': 36, 'height': 175, 'weight': 76}
+        ];
+
+        console.table(quickSortBy(data1, 0, data1.length-1, 'weight', 'desc')); //按weight字段降序排序
+
+    }
+    </script>
+</body>
+
+</html>
