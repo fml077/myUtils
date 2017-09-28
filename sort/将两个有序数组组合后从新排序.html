@@ -22,7 +22,7 @@
             return newArr;
         }
 
-        //方法二，新建一个空数组，和两个变量i,j标记两组数据比较值的下标 
+        //方法二，新建一个空数组temp，和两个变量i,j标记两组数据比较值的下标 
         function sortFun(data1, data2) {
             var temp = [],
                 t = 0,
@@ -36,13 +36,13 @@
                 }
             }
 
-            while (i < data1.length) {
+            while (i < data1.length) { //data1中剩余的数组添加到temp中
                 temp[t++] = data1[i++];
             }
-            while (j < data2.length) {
+            while (j < data2.length) {  //data2中剩余的数组添加到temp中
                 temp[t++] = data2[j++];
             }
-            return temp;
+            return temp; //返回排完序的新数组
 
         }
 
