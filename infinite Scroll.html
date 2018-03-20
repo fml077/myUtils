@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>水平无限循环滚动</title>
+    <meta charset="UTF-8">
+    <style>
+    .scrollbox {
+        width: 1000px;
+        font-size: 13px;
+        font-family: '宋体';
+        background: #DDE5ED;
+        color: #0C77CF;
+        font-weight: bold;
+    }
+    .scrollbox .scroll_div {
+        width: 500px;
+        height: 30px;
+        overflow: hidden;
+        line-height: 30px;
+        white-space: nowrap;
+        overflow:hidden;
+        margin:0 auto;
+    }
+    .scrollbox .scroll_begin,
+    .scrollbox .scroll_end {
+        display: inline
+    }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="scrollbox">
+        <div class="scroll_div">
+            <div class="scroll_begin">
+                BBBBBBbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+            </div>
+            <div id="scroll_end" class="scroll_end"></div>
+        </div>
+        <div class="scroll_div">
+            <div class="scroll_begin">
+                AAAAAAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            </div>
+            <div id="scroll_end" class="scroll_end"></div>
+        </div>
+    </div>
+
+   
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+    /*function ScrollImgLeft() {
+        var speed = 50;
+        var scroll_begin = document.getElementById("scroll_begin");
+        var scroll_end = document.getElementById("scroll_end");
+        var scroll_div = document.getElementById("scroll_div");
+        scroll_end.innerHTML = scroll_begin.innerHTML;
+
+        function Marquee() {
+            if (scroll_end.offsetWidth - scroll_div.scrollLeft <= 0)
+                scroll_div.scrollLeft -= scroll_begin.offsetWidth;
+            else
+                scroll_div.scrollLeft++;
+        }
+        var MyMar = setInterval(Marquee, speed);
+        scroll_div.onmouseover = function() { clearInterval(MyMar); }
+        scroll_div.onmouseout = function() { MyMar = setInterval(Marquee, speed); }
+    }
+    ScrollImgLeft()*/
+
+
+    var wordScrollLeft = function() { // 首屏英文内容无限循环动画
+      var scroll_begin = document.getElementsByClassName("scroll_begin");
+      var scroll_end = document.getElementsByClassName("scroll_end");
+      var scroll_div = document.getElementsByClassName("scroll_div");
+      var speed = 50;
+      var timer=[];
+        for (let i = 0, len = scroll_div.length; i < len; i++) {
+          scroll_end[i].innerHTML = scroll_begin[i].innerHTML;
+          var  Marquee=  function () {
+            if (scroll_end[i].offsetWidth - scroll_div[i].scrollLeft <= 0){
+              scroll_div[i].scrollLeft -= scroll_begin[i].offsetWidth;
+            }
+            else {
+              scroll_div[i].scrollLeft = scroll_div[i].scrollLeft + 1
+            }
+          }
+          timer[i] = setInterval(Marquee, speed);
+        } 
+    }
+    wordScrollLeft()
+    
+}
+</script>
+
+</html>
