@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>纯css实现星级评分</title>
+    <style>
+    /*scss写法*/
+    	/*.star-container {
+		  text-align: center;
+		  font-size: 0;
+		  label {
+		    display: inline-block;
+		    cursor: pointer;
+		    &:after { 
+		      content: "\2605";
+		      font-size: 46px;
+		      color: #999;
+		      text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+		    }
+		    &:hover:after { color: #F89406; }     
+		  }   
+		  input { display: none; } 
+		  #one:checked ~ label[for=one]:after,
+		  #two:checked ~ label[for=two]:after,
+		  #three:checked ~ label[for=three]:after,
+		  #four:checked ~ label[for=four]:after,
+		  #five:checked ~ label[for=five]:after, { color: #F89406; }
+		  #two:checked ~ label[for=one]:after { color: #F89406; }
+		  #three:checked {
+		    & ~ label[for=one]:after,
+		    & ~ label[for=two]:after { color: #F89406; }
+		  }
+		  #four:checked {
+		    & ~ label[for=one]:after,
+		    & ~ label[for=two]:after,
+		    & ~ label[for=three]:after { color: #F89406; }
+		  }
+		  #five:checked {
+		    & ~ label[for=one]:after,
+		    & ~ label[for=two]:after,
+		    & ~ label[for=three]:after, 
+		    & ~ label[for=four]:after { color: #F89406; }        
+		  }   
+		}*/
+	/*常规css写法	*/
+		.star-container {
+		  text-align: center;
+		  font-size: 0;
+		}
+		.star-container label {
+		  display: inline-block;
+		  cursor: pointer;
+		}
+		.star-container label:after {
+		  content: "\2605";
+		  font-size: 46px;
+		  color: #999;
+		  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+		}
+		.star-container label:hover:after {
+		  color: #F89406;
+		}
+		.star-container input {
+		  display: none;
+		}
+		.star-container #one:checked ~ label[for=one]:after,
+		.star-container #two:checked ~ label[for=two]:after,
+		.star-container #three:checked ~ label[for=three]:after,
+		.star-container #four:checked ~ label[for=four]:after,
+		.star-container #five:checked ~ label[for=five]:after {
+		  color: #F89406;
+		}
+		.star-container #two:checked ~ label[for=one]:after {
+		  color: #F89406;
+		}
+		.star-container #three:checked ~ label[for=one]:after, .star-container #three:checked ~ label[for=two]:after {
+		  color: #F89406;
+		}
+		.star-container #four:checked ~ label[for=one]:after, .star-container #four:checked ~ label[for=two]:after, .star-container #four:checked ~ label[for=three]:after {
+		  color: #F89406;
+		}
+		.star-container #five:checked ~ label[for=one]:after, .star-container #five:checked ~ label[for=two]:after, .star-container #five:checked ~ label[for=three]:after, .star-container #five:checked ~ label[for=four]:after {
+		  color: #F89406;
+		}
+    </style>
+</head>
+
+<body>
+    <div class="star-container">
+        <input type="radio" name="starred" id="one" />
+        <input type="radio" name="starred" id="two" />
+        <input type="radio" name="starred" id="three" />
+        <input type="radio" name="starred" id="four" />
+        <input type="radio" name="starred" id="five" />
+        <label for="one"></label>
+        <label for="two"></label>
+        <label for="three"></label>
+        <label for="four"></label>
+        <label for="five"></label>
+    </div>
+</body>
+
+</html>
